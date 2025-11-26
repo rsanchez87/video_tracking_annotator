@@ -93,10 +93,10 @@ def validate_ball_presence(video_path, model_path=DEFAULT_MODEL_PATH, sample_rat
 
     cap.release()
 
-    results['processing_time'] = time.time() - start_time  # type: ignore
-    results['detection_rate'] = (results['frames_with_ball'] / results['frames_analyzed'] * 100  # type: ignore
+    results['processing_time'] = time.time() - start_time
+    results['detection_rate'] = (results['frames_with_ball'] / results['frames_analyzed'] * 100
                                  if results['frames_analyzed'] > 0 else 0)
-    results['avg_confidence'] = (confidence_sum / results['frames_with_ball']  # type: ignore
+    results['avg_confidence'] = (confidence_sum / results['frames_with_ball']
                                 if results['frames_with_ball'] > 0 else 0)
 
     return results

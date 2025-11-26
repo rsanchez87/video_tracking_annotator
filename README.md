@@ -10,13 +10,13 @@
 # 1. MERGE multiple video clips into one (if needed)
 python utils/merge_videos.py full_match.mp4 half1.mp4 half2.mp4
 
-# 2. ANNOTATE the merged video (main tool)
+# 2. ANNOTATE the merged video (⭐ main tool)
 python motion_detector/annotator.py full_match.mp4
 
 # 3. VIEW and validate annotations
 python utils/view_annotations.py annotations/full_match_coco.json full_match.mp4
 
-# 4. OPTIONAL - Test YOLO detector for comparison
+# 4. OPTIONAL - Test YOLO detector for baseline
 python motion_detector/detector.py full_match.mp4
 ```
 
@@ -37,12 +37,12 @@ python utils/view_annotations.py annotations/full_match_coco.json full_match.mp4
 ```
 ├── motion_detector/
 │   ├── annotator.py          # ⭐ Main tool - Interactive annotator
-│   └── detector.py            # ⚠️ Optional - YOLO detector (experimental)
+│   └── detector.py            # ⚠️ Optional - YOLO detector (0-5% accuracy)
 ├── utils/
 │   ├── view_annotations.py    # View/validate annotations
 │   └── merge_videos.py        # Merge multiple video files by timestamp
 ├── models/
-│   └── yolov8n.pt            # YOLO model (only for detector)
+│   └── yolov8n.pt            # YOLO model (optional, for detector only)
 ├── videos/                    # Your video files
 └── annotations/               # Generated JSON files
 ```
@@ -150,5 +150,5 @@ wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt -
 - **Main tool:** The annotator - create high-quality training data
 - Display resolution scaled to 30% (configurable)
 - Coordinates saved in original video resolution
-- **Detector is optional:** ~1-2% accuracy, use only for baseline comparison
+- **Detector is optional:** 0-5% accuracy, use only for baseline comparison
 - For production: train custom model with your annotations from the annotator

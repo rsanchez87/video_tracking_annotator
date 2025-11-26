@@ -28,18 +28,24 @@ pip install -r requirements.txt || { echo "✗ Failed to install dependencies"; 
 echo "✓ Dependencies installed"
 echo ""
 
-# Download YOLOv8n model
-echo "Downloading YOLOv8n model..."
+# Download YOLOv8n model (optional)
+echo "Download YOLO model (optional - only for detector)?"
+echo ""
+
 if [ ! -f "models/yolov8n.pt" ]; then
-    wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt -P models/ || {
-        echo "✗ Failed to download model"
-        echo "  You can download it manually from:"
-        echo "  https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt"
-        exit 1
-    }
-    echo "✓ Model downloaded"
+    read -p "Download YOLOv8n model? [y/N]: " response
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        wget https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt -P models/ || {
+            echo "✗ Failed to download model"
+            echo "  You can download it manually from:"
+            echo "  https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt"
+        }
+        echo "✓ Model downloaded"
+    else
+        echo "⊘ Skipped model download"
+    fi
 else
-    echo "✓ Model already exists"
+    echo "✓ YOLO model already exists"
 fi
 echo ""
 
