@@ -80,7 +80,7 @@ class BallAnnotator:
         print(f"  'z': Zoom (30%/50%/70%)")
         print(f"{'='*70}\n")
 
-    def mouse_callback(self, event, x, y, flags, param):  # type: ignore
+    def mouse_callback(self, event, x, y, flags, param):
         scale_factor = self.scale_percent / 100
         self.mouse_x = int(x / scale_factor)
         self.mouse_y = int(y / scale_factor)
@@ -98,7 +98,7 @@ class BallAnnotator:
 
         self.coco_data["annotations"] = [
             ann for ann in self.coco_data["annotations"]
-            if ann["frame_id"] != frame_idx  # type: ignore
+            if ann["frame_id"] != frame_idx
         ]
 
         self.coco_data["annotations"].append(annotation)
@@ -115,10 +115,10 @@ class BallAnnotator:
         display = cv2.resize(self.current_frame, (width, height))
 
         for ann in self.coco_data["annotations"]:
-            if ann["frame_id"] == self.current_frame_idx:  # type: ignore
-                cx, cy = ann["center"]  # type: ignore
-                x = int(cx * scale_factor)  # type: ignore
-                y = int(cy * scale_factor)  # type: ignore
+            if ann["frame_id"] == self.current_frame_idx:
+                cx, cy = ann["center"]
+                x = int(cx * scale_factor)
+                y = int(cy * scale_factor)
                 cv2.circle(display, (x, y), 8, (0, 255, 0), 2)
                 cv2.circle(display, (x, y), 2, (0, 255, 0), -1)
 
@@ -192,7 +192,7 @@ class BallAnnotator:
                     loaded = json.load(f)
                     self.coco_data["annotations"] = loaded.get("annotations", [])
                     if self.coco_data["annotations"]:
-                        self.annotation_id = max(ann["id"] for ann in self.coco_data["annotations"]) + 1  # type: ignore
+                        self.annotation_id = max(ann["id"] for ann in self.coco_data["annotations"]) + 1
                 print(f"✓ Loaded {len(self.coco_data['annotations'])} annotations")
                 return True
             except Exception as e:
@@ -225,7 +225,7 @@ class BallAnnotator:
         self.load_existing_annotations()
 
         cv2.namedWindow(self.window_name)
-        cv2.setMouseCallback(self.window_name, self.mouse_callback)  # type: ignore[arg-type]
+        cv2.setMouseCallback(self.window_name, self.mouse_callback)
 
         ret, self.current_frame = self.cap.read()
         if not ret:
@@ -275,7 +275,7 @@ class BallAnnotator:
                     print("\nFrame number: ", end='', flush=True)
                     try:
                         self.go_to_frame(int(input()))
-                    except:
+                    except ValueError:
                         print("Invalid")
                 elif key == ord('+') or key == ord('='):
                     self.playback_speed = min(4, self.playback_speed + 0.5)
