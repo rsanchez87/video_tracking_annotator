@@ -12,6 +12,16 @@ python3 --version || { echo "✗ Python 3 not found. Please install Python 3.7+"
 echo "✓ Python found"
 echo ""
 
+# Check ffmpeg
+echo "Checking ffmpeg..."
+if command -v ffmpeg &> /dev/null; then
+    echo "✓ ffmpeg found"
+else
+    echo "⚠ ffmpeg not found (needed for video merging)"
+    echo "  Install with: sudo apt install ffmpeg"
+fi
+echo ""
+
 # Install dependencies
 echo "Installing dependencies..."
 pip install -r requirements.txt || { echo "✗ Failed to install dependencies"; exit 1; }
@@ -44,8 +54,14 @@ echo "✓ Setup complete!"
 echo "======================================"
 echo ""
 echo "Quick start:"
-echo "  1. Place your video in videos/ folder"
-echo "  2. Run: python motion_detector/annotator.py videos/your_video.mp4"
+echo "  1. If you have multiple video clips:"
+echo "     python utils/merge_videos.py full_match.mp4 clip1.mp4 clip2.mp4"
+echo ""
+echo "  2. Annotate your video:"
+echo "     python motion_detector/annotator.py videos/full_match.mp4"
+echo ""
+echo "  3. View annotations:"
+echo "     python utils/view_annotations.py annotations/full_match_coco.json videos/full_match.mp4"
 echo ""
 echo "See README.md for more information."
 
